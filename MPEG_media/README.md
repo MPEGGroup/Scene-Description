@@ -192,7 +192,7 @@ Application-specific data.
 
 Additional properties are allowed.
 
-* **JSON schema**: [MPEG_media.media.alternative.schema.json](/Extensions/MPEG_media/schema/MPEG_media.media.alternative.schema.json)
+* **JSON schema**: [MPEG_media.media.alternative.schema.json](schema/MPEG_media.media.alternative.schema.json)
 
 ### MPEG_media.media.alternative.uri
 
