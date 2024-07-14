@@ -26,6 +26,14 @@ Links to MPEG Output documents are only accessible to MPEG members.
 * [MPEG_texture_video](MPEG_texture_video/README.md)
 * [MPEG_viewport_recommended](MPEG_viewport_recommended/README.md)
 
+The following extensions are part of 2nd edition:
+
+* [MPEG_anchor](MPEG_anchor/README.md)
+* [MPEG_interactivity](MPEG_interactivity/README.md)
+* [MPEG_lighting](MPEG_lighting/README.md)
+* [MPEG_node_avatar](MPEG_node_avatar/README.md)
+
+
 ## License
 
 The copyright in this software is being made available under the BSD License, included below. This software may be subject to other third party and contributor rights, including patentrights, and no such rights are granted under this license.
