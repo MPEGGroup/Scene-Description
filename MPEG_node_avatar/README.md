@@ -181,6 +181,8 @@ Table 3: Avatar paths
 |--|
 
 
+* **JSON schema**: [MPEG_node_avatar.schema.json](/Extensions/MPEG_node_avatar/schema/MPEG_node_avatar.schema.json)
+
 ##	Processing model
 Each avatar in a scene is represented by a node that contains the MPEG_node_avatar extension. When present in a node, it means that all referenced mesh elements by this node will be reconstructed from an avatar representation. 
 

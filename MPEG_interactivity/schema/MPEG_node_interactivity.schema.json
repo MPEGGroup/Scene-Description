@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["triggers"],
+    "properties": {
+      "triggers": {
+        "type": "array",
+        "description": "Array of node triggers (as defined in Table 26). Only distinct types are allowed.",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "$ref": "MPEG_node_interactivity.trigger.schema.json"
+        }
+      }
+    }
+  }

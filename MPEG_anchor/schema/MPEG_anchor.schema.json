@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["trackables", "anchors"],
+    "properties": {
+      "trackables": {
+        "type": "array",
+        "description": "Provides a list of trackables used by the anchor objects",
+        "items": {
+          "$ref": "MPEG_anchor.trackable.schema.json"
+        }
+      },
+      "anchors": {
+        "type": "array",
+        "description": "Provides a list of anchors for a scene or for root nodes to enable AR anchoring",
+        "items": {
+          "$ref": "#MPeG_anchor.anchor.schema.json"
+        }
+      }
+    }
+  }

@@ -144,6 +144,8 @@ The x- and z-axes match the longitude and latitude directions. -Z points to true
 The application-defined trackable object must have a right-handed coordinate space.
 
 
+* **JSON schema**: [MPEG_anchor.schema.json](/Extensions/MPEG_anchor/schema/MPEG_anchor.schema.json)
+
 ##	Processing model
 Each trackable provides a local reference space in which an anchor pose can be expressed. This local reference space is right-handed and depends on the type of trackable as described below.
 The MPEG_anchor extension shall not be present at scene and node level at the same time in a glTF file conforming to this document. Upon activation of the XR mode, the Presentation Engine identifies the anchor points associated with the scene or with the root nodes and the related trackables. In the case of a trackable of type TRACKABLE_MARKER_GEO, it is up to the application to decide when to render the virtual object.

@@ -1,0 +1,154 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["type"],
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["TRIGGER_COLLISION", "TRIGGER_PROXIMITY", "TRIGGER_USER_INPUT", "TRIGGER_VISIBILITY"],
+        "description": "One element of Table 8 that defines the type of the trigger."
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": { "type": { "const": "TRIGGER_COLLISION" } }
+        },
+        "then": {
+          "required": ["collider", "isStatic", "usePhysics"],
+          "properties": {
+            "collider": {
+              "type": "integer",
+              "description": "The index of the mesh element that provides the collider geometry for the current node."
+            },
+            "isStatic": {
+              "type": "boolean",
+              "description": "If True, the collider is defined as a static collider."
+            },
+            "usePhysics": {
+              "type": "boolean",
+              "description": "Indicates if the object shall be considered by the physics simulation."
+            },
+            "needPreciseCollisionDetection": {
+              "type": "boolean",
+              "default": false,
+              "description": "If true, the physics engine should handle the collision detection more accurately by increasing the detection rate for this node."
+            },
+            "linearDamping": {
+              "type": "number",
+              "minimum": 0,
+              "default": 0,
+              "description": "Linear drag coefficient which corresponds to the rate of decrease of the linear velocity over time, in second-1 (s-1)."
+            },
+            "angularDamping": {
+              "type": "number",
+              "minimum": 0,
+              "default": 0,
+              "description": "Angular drag coefficient which corresponds to the rate of decrease of the angular velocity over time, in second-1 (s-1)."
+            },
+            "useGravity": {
+              "type": "boolean",
+              "description": "Indicates if the gravity affects the object"
+            },
+            "mass": {
+              "type": "number",
+              "description": "Mass of the object in kilogram as defined in the international unit system."
+            },
+            "restitution": {
+              "type": "number",
+              "description": "Provides the ratio of the final to initial relative velocity between two objects after they collide."
+            },
+            "staticFriction": {
+              "type": "number",
+              "description": "Unitless friction coefficient used when the object is lying still."
+            },
+            "dynamicFriction": {
+              "type": "number",
+              "description": "Unitless friction coefficient used when the object is moving."
+            },
+            "primitives": {
+              "type": "array",
+              "items": { "$ref": "MPeG_interactivity.trigger.primitive.schema.json" },
+              "description": "List of primitives used to activate the proximity or collision trigger."
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": { "usePhysics": { "const": true } }
+              },
+              "then": {
+                "required": ["useGravity", "mass", "restitution", "staticFriction", "dynamicFriction"]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "TRIGGER_PROXIMITY" } }
+        },
+        "then": {
+          "required": ["allowOcclusion"],
+          "properties": {
+            "allowOcclusion": {
+              "type": "boolean",
+              "description": "Indicates if occlusion by other nodes should be considered"
+            },
+            "upperDistanceWeight": {
+              "type": "number",
+              "default": 1,
+              "description": "The weight applied to the distanceUpperLimit parameter defined at scene level"
+            },
+            "lowerDistanceWeight": {
+              "type": "number",
+              "default": 1,
+              "description": "The weight applied to the distanceLowerLimit parameter defined at scene level"
+            },
+            "primitives": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Primitive" },
+              "description": "List of primitives used to activate the proximity or collision trigger."
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "TRIGGER_USER_INPUT" } }
+        },
+        "then": {
+          "required": ["userInputParameters"],
+          "properties": {
+            "userInputParameters": {
+              "type": "array",
+              "description": "Provides additional information related to the user inputs"
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "TRIGGER_VISIBILITY" } }
+        },
+        "then": {
+          "required": ["allowsPartialOcclusion"],
+          "properties": {
+            "allowsPartialOcclusion": {
+              "type": "boolean",
+              "description": "Determines if partial visibility of the node activates the trigger."
+            },
+            "nodes": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Set of nodes that shall not be considered for the visibility computation, when the allowsPartialOcclusion is FALSE."
+            },
+            "mesh": {
+              "type": "number",
+              "description": "Index of the mesh in the scene meshes array that will be used to compute visibility."
+            }
+          }
+        }
+      }
+    ]
+  }

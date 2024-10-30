@@ -73,11 +73,8 @@ Table 3: Definitions of objects at the scene level of MPEG_lights_texture_based
 | light | array(integer) | M |  | Reference to an item in the lights array of the MPEG_lights_texture_based extension. |
 
 
-The JSON schema for the MPEG_lights_texture_based extension is provided in A.14.
 
-
-
-
+* **JSON schema**: [MPEG_lights_texture_based.schema.json](/Extensions/MPEG_lighting/schema/MPEG_lights_texture_based.schema.json)
 
 ###	Semantics of the MPEG_light_punctual extension
 When present, the MPEG_light_punctual extension shall be included as a glTF file level extension.
@@ -100,7 +97,8 @@ In the absence of the accessor, the value in the referenced light is considered 
 In the absence of the accessor, the value in the referenced light is considered as the constant value for the rendering duration. |
 
 
-The JSON schema for the MPEG_light_punctual extension is provided in A.15.
+
+* **JSON schema**: [MPEG_lights_punctual.schema.json](/Extensions/MPEG_lighting/schema/MPEG_lights_punctual.schema.json)
 
 ##	Processing model 
 When a scene description document contains light source defined in the MPEG_lights_texture_based extension or the MPEG_light_punctual extension, the renderer should take into consideration this lighting information when rendering the view of the scene. The operations to be applied depends on the context of the application, e.g. if it is a VR or an AR application. In addition, the renderer should also consider whether the lights are virtual or physical based on the value of the nature field.

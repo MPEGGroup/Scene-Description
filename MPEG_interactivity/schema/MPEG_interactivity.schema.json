@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["triggers", "actions", "behaviors"],
+    "properties": {
+      "triggers": {
+        "type": "array",
+        "description": "Contains the definition of all the triggers used in that scene.",
+        "items": {
+          "$ref": "MPEG_interactivity.trigger.schema.json"
+        }
+      },
+      "actions": {
+        "type": "array",
+        "description": "Contains the definition of all the actions used in that scene.",
+        "items": {
+          "$ref": "MPEG_interactivity.action.schema.json"
+        }
+      },
+      "behaviors": {
+        "type": "array",
+        "description": "Contains the definition of all the behaviors used in that scene. A behavior is composed of a pair of (triggers, actions), control parameters of triggers and actions, a priority weight and an optional interrupt action.",
+        "items": {
+            "$ref": "MPEG_interactivity.behavior.schema.json"
+        }  
+    },
+      "recommendedPhysicsHighPrecision": {
+        "type": "boolean",
+        "description": "Determines whether the application should enable a more deterministic and precise physic simulation",
+        "default": false
+      },
+      "gravity": {
+        "type": "number",
+        "description": "Determine the gravity for the whole scene. In meter per second square (m.s-2) as defined in the international unit system.",
+        "default": -9.81
+      },
+      "recommendedPhysicsFrameRate": {
+        "type": "number",
+        "description": "Provides the recommended frame rate at which the Physics Engine should operate. In frame per second as defined in the international unit system.",
+        "default": 50
+      },
+      "bounceThreshold": {
+        "type": "number",
+        "description": "A contact with a relative velocity below this threshold will not result in a bounce. In meter per second (m.s-1) as defined in the international unit system.",
+        "default": 1
+      }
+    }
+  }

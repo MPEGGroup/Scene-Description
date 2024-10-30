@@ -371,6 +371,8 @@ If the allowsPartialOcclusion Boolean is FALSE, then this node shall be fully in
 | } |  |  |  |  |
 
 
+* **JSON schema**: [MPEG_interactivity.schema.json](/Extensions/MPEG_interactivity/schema/MPEG_interactivity.schema.json)
+
 ##	Processing model
 When a scene description file becomes available, the Presentation Engine
 parses the related glTF file

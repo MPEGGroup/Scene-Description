@@ -1,0 +1,245 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["type"],
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "ACTION_ACTIVATE",
+          "ACTION_TRANSFORM", 
+          "ACTION_BLOCK",
+          "ACTION_ANIMATION",
+          "ACTION_MEDIA",
+          "ACTION_MANIPULATE",
+          "ACTION_SET_MATERIAL",
+          "ACTION_HAPTIC",
+          "ACTION_SET_AVATAR"
+        ],
+        "description": "One element of Table 37 that defines the type of the action.",
+        "enumDescriptions": {
+          "ACTION_ACTIVATE": "Set activation status of a node",
+          "ACTION_TRANSFORM": "Set transform to a node",
+          "ACTION_BLOCK": "Block the transform of a node",
+          "ACTION_ANIMATION": "Select and control an animation",
+          "ACTION_MEDIA": "Select and control a media",
+          "ACTION_MANIPULATE": "Select a manipulate action",
+          "ACTION_SET_MATERIAL": "Set new material to nodes",
+          "ACTION_HAPTIC": "Get haptic feedbacks on a set of nodes",
+          "ACTION_SET_AVATAR": "Get avatar related actions"
+        }
+      },
+      "delay": {
+        "type": "number",
+        "default": 0.0,
+        "description": "Duration of delay in second before executing the action."
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_ACTIVATE" } }
+        },
+        "then": {
+          "required": ["activationStatus", "nodes"],
+          "properties": {
+            "activationStatus": {
+              "type": "string",
+              "enum": ["ENABLED", "DISABLED"],
+              "description": "ENABLED=0: the node shall be processed by the application, DISABLED=1: the node shall be skipped by the application."
+            },
+            "nodes": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Indices of the nodes in the nodes array to set the activation status."
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_TRANSFORM" } }
+        },
+        "then": {
+          "required": ["transform", "nodes"],
+          "properties": {
+            "transform": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 16,
+              "maxItems": 16,
+              "description": "A 4x4 transformation matrix to apply to the nodes."
+            },
+            "nodes": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Indices of the nodes in the nodes array to be transformed."
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_BLOCK" } }
+        },
+        "then": {
+          "required": ["nodes"],
+          "properties": {
+            "nodes": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Indices of the nodes in the nodes array to lock their related transforms."
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_ANIMATION" } }
+        },
+        "then": {
+          "required": ["animation", "animationControl"],
+          "properties": {
+            "animation": {
+              "type": "number",
+              "description": "Index of the animation in the animations array to be considered."
+            },
+            "animationControl": {
+              "type": "string",
+              "enum": ["ANIMATION_PLAY", "ANIMATION_PAUSE", "ANIMATION_RESUME", "ANIMATION_STOP"],
+              "description": "One element of Table 38 that defines the control of the animation.",
+              "enumDescriptions": {
+                "ANIMATION_PLAY": "Play the animation from time 0 or from any other time provided by a control.",
+                "ANIMATION_PAUSE": "Pause the animation",
+                "ANIMATION_RESUME": "Resume the animation from the last pause position.",
+                "ANIMATION_STOP": "Stop the animation"
+              }
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_MEDIA" } }
+        },
+        "then": {
+          "required": ["media", "mediaControl"],
+          "properties": {
+            "media": {
+              "type": "number",
+              "description": "Index of the media in the MPEG_media array to be considered."
+            },
+            "mediaControl": {
+              "type": "string",
+              "enum": ["MEDIA_PLAY", "MEDIA_PAUSE", "MEDIA_RESUME", "MEDIA_STOP"],
+              "description": "One element of Table 39 that defines the control of the media.",
+              "enumDescriptions": {
+                "MEDIA_PLAY": "Play the media from time 0 or from any other time provided by a control.",
+                "MEDIA_PAUSE": "Pause the media",
+                "MEDIA_RESUME": "Resume the media from the last pause position.",
+                "MEDIA_STOP": "Stop the media"
+              }
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_MANIPULATE" } }
+        },
+        "then": {
+          "required": ["manipulateActionType", "userInputDescription", "nodes"],
+          "properties": {
+            "manipulateActionType": {
+              "type": "string",
+              "enum": [
+                "ACTION_MANIPULATE_FREE",
+                "ACTION_MANIPULATE_SLIDE",
+                "ACTION_MANIPULATE_TRANSLATE",
+                "ACTION_MANIPULATE_ROTATE",
+                "ACTION_MANIPULATE_SCALE"
+              ],
+              "description": "One element of Table 40 that defines the action manipulate type.",
+              "enumDescriptions": {
+                "ACTION_MANIPULATE_FREE": "The nodes follow the user pointing device and its rotation.",
+                "ACTION_MANIPULATE_SLIDE": "The nodes move linearly along the provided axis by following the user pointing device.",
+                "ACTION_MANIPULATE_TRANSLATE": "The nodes translate by following the user pointing device.",
+                "ACTION_MANIPULATE_ROTATE": "The nodes rotate around the provided axis by following the user pointing device.",
+                "ACTION_MANIPULATE_SCALE": "Performs a central scaling of the nodes by following the user pointing device."
+              }
+            },
+            "axis": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 3,
+              "maxItems": 3,
+              "default": [0, 1, 0],
+              "description": "(x,y,z) coordinates of the axis used for rotation and sliding. These coordinates are relative to the local space created by the user input described in the userInputDescription."
+            },
+            "userInputDescription": {
+              "type": "string",
+              "description": "Describe the user input related to the manipulation action. The format shall follow the OpenXR input path description as defined in [OpenXR] section 6."
+            },
+            "nodes": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Indices of the nodes in the nodes array to be manipulated."
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_SET_MATERIAL" } }
+        },
+        "then": {
+          "required": ["material", "nodes"],
+          "properties": {
+            "material": {
+              "type": "number",
+              "description": "Index of the material in the materials array to apply to the set of nodes."
+            },
+            "nodes": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Indices of the nodes in the nodes array to set their material."
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_HAPTIC" } }
+        },
+        "then": {
+          "required": ["hapticActionNodes"],
+          "properties": {
+            "hapticActionNodes": {
+              "type": "array",
+              "items": { "$ref": "MPEG_interactivity.action.haptic.schema.json" },
+              "description": "List of haptic action nodes as defined in Table 43."
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": { "type": { "const": "ACTION_SET_AVATAR" } }
+        },
+        "then": {
+          "required": ["avatarAction", "nodes"],
+          "properties": {
+            "avatarAction": {
+              "type": "string",
+              "description": "The avatarAction is a URN that uniquely identifies the avatar action."
+            },
+            "nodes": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Indices of the nodes in the nodes array to launch their avatar actions."
+            }
+          }
+        }
+      }
+    ]
+  }
