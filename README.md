@@ -2,12 +2,14 @@
 
 Official MPEG repository to discuss work related to MPEG-I SD (ISO/IEC 23090-14 Scene Description).
 
-The table below lists final and current documents produced by MPEG regarding ISO/IEC 23090-14 SD.
+The table below lists final and current documents produced by MPEG regarding Scene Description.
 Links to MPEG Output documents are only accessible to MPEG members.
 
 | Document Name | Output Date | Output doc# (MPEG-member only) | ISO Status | Comments |
 | ----- | ----- | ----- | ----- | ----- | 
-| 1st Edition | *TODO* | *TODO* | *TODO* | |
+| Text of ISO/IEC FDIS 23090-14 2nd edition Scene description | 2024-07-09 | [MDS23831_WG03_N01221](https://dms.mpeg.expert/doc_end_user/documents/146_Rennes/wg11/MDS23831_WG03_N01221.zip) | *TODO* | |
+
+
 
 
 # MPEG glTF Extension Registry
