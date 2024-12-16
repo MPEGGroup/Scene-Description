@@ -1,108 +1,127 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": ["BV_CUBOID", "BV_PLANE_REGION", "BV_CYLINDER_REGION", "BV_CAPSULE_REGION", "BV_SPHEROID"],
-        "default": "BV_SPHEROID",
-        "description": "Describes the type of primitive used to activate the proximity trigger."
-      },
-      "boundary": {
-        "type": "number",
-        "default": 0.0,
-        "description": "Defines the region of intersection within the primitive. if zero, then all area of the primitive activates the trigger. Otherwise, the region of intersection decreases following the normal direction of all sides of the primitive from its centroid. For the capsule primitive, it should be applied over the radius, top, and base attributes."
-      },
-      "transformationMatrix": {
-        "type": "array",
-        "items": { "type": "number" },
-        "minItems": 16,
-        "maxItems": 16,
-        "default": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0],
-        "description": "Floating-point 4x4 matrix that defines the initial orientation, translation, and scale of a primitive. Formatted in column-major order. The primitive shall follow x+ for width, y+ for height, z+ for length. The matrix transformation allows to transform any primitive after initialization."
-      }
+    "$schema" : "http://json-schema.org/draft-07/schema",
+    "title" : "MPEG_interactivity.trigger.primitive object",
+    "type" : "object",
+    "description" : "glTF extension to specify trigger primitive formats",
+    "properties" : {
+        "type" : {
+            "type": "number",
+            "description": "Type of the primitive used to activate the trigger.",
+            "gltf_detailedDescription": "Value is oneOf BV_CUBOID=0, BV_PLANE_REGION=1, BV_CYLINDER_REGION=2, BV_CAPSULE_REGION=3, BV_SPHEROID=4",
+            "default" : 0
+        },
+        "boundary" : {
+            "type": "number",
+            "description": "Defines the region of intersection within the primitive. if zero then all area of the primitive activates the triggerOtherwise, the region of intersection decreases following the normal direction of all sides of the primitive from its centroid. For the capsule primitive, it should be applied over the radius, top, and base attributes.",
+            "default" : 0.0
+        },
+        "transformationMatrix" : {
+            "type": "array",
+            "items": { "type" : "number"},
+            "minItem": 16,
+            "maxItems": 16,
+            "description": "Floating-point 4x4 matrix that defines the initial orientation, translation, and scale of a primitive.",
+            "gltf_detailedDescription":"Formatted in column-major order. The primitive shall follow x+ for width, y+ for height, z+ for length . The matrix transformation allows to transform any primitive after initialization.",
+            "default" : [1.0,0.0,0.0,0.0,
+                        0.0,1.0,0.0,0.0,
+                        0.0,0.0,1.0,0.0,
+                        0.0,0.0,0.0,1.0]
+        },
+        "width":
+        {
+            "type": "number",
+            "description": "Width of the primitive object. "
+        },
+        "height":
+        {
+            "type": "number",
+            "description": "Height of the primitive object. "
+        },
+        "length":
+        {
+            "type": "number",
+            "description": "Length of the primitive object. "
+        },
+        "radius":
+        {
+            "type": "number",
+            "description": "Radius of the primitive object. "
+        },
+        "baseCentroid":
+        {
+            "type": "array",
+            "items": { "type" : "number"},
+            "minItem": 3,
+            "maxItems": 3,
+            "description": "Centroid 3D coordinate (x,y,z) of the base semi-sphere of the primitive object. "
+        },
+        "topCentroid":
+        {
+            "type": "array",
+            "items": { "type" : "number"},
+            "minItem": 3,
+            "maxItems": 3,
+            "description": "Centroid 3D coordinate (x,y,z) of the top semi-sphere of the capsule. "
+        },
+        "centroid":
+        {
+            "type": "array",
+            "items": { "type" : "number"},
+            "minItem": 2,
+            "maxItems": 3,
+            "description": "Centroid 2d (x,y) or (y,z) or (x,z)  or 3D coordinate  (x,y,z) of the primitive object. "
+        },
+
+        "extensions": {},
+        "extras": {}
     },
     "allOf": [
-      {
-        "if": {
-          "properties": { "type": { "const": "BV_CUBOID" } }
+        { "$ref" : "glTFProperty.schema.json" },
+        {
+          "if": {
+            "properties": { "type": { "const": 0, "description":"BV_CUBOID" } },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["width", "height", "length", "centroid"]
+          }
         },
-        "then": {
-          "required": ["width", "height", "length", "centroid"],
-          "properties": {
-            "width": { "type": "number", "description": "Width of the box." },
-            "height": { "type": "number", "description": "Height of the box." },
-            "length": { "type": "number", "description": "Length of the box." },
-            "centroid": { "$ref": "#/definitions/VEC3", "description": "Centroid 3D coordinate (x,y,z) of the cube." }
+        {
+          "if": {
+            "properties": { "type": { "const": 1, "description":"BV_PLANE_REGION" } },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["width", "height", "centroid"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": 2, "description":"BV_CYLINDER_REGION" } },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["radius", "length", "centroid"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": 3, "description":"BV_CAPSULE_REGION" } },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["radius", "baseCentroid", "topCentroid"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": 4, "description":"BV_SPHEROID"} },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["radius", "centroid"]
           }
         }
-      },
-      {
-        "if": {
-          "properties": { "type": { "const": "BV_PLANE_REGION" } }
-        },
-        "then": {
-          "required": ["width", "height", "centroid"],
-          "properties": {
-            "width": { "type": "number", "description": "Width of the plane." },
-            "height": { "type": "number", "description": "Height of the plane." },
-            "centroid": { "$ref": "#/definitions/VEC2", "description": "Centroid 2D coordinate (x,y) or (x,z) or (y,z) of the plane." }
-          }
-        }
-      },
-      {
-        "if": {
-          "properties": { "type": { "const": "BV_CYLINDER_REGION" } }
-        },
-        "then": {
-          "required": ["radius", "length", "centroid"],
-          "properties": {
-            "radius": { "type": "number", "description": "Radius of the cylinder." },
-            "length": { "type": "number", "description": "Length of the cylinder." },
-            "centroid": { "$ref": "#/definitions/VEC3", "description": "Centroid 3D coordinate (x,y,z) of the cylinder" }
-          }
-        }
-      },
-      {
-        "if": {
-          "properties": { "type": { "const": "BV_CAPSULE_REGION" } }
-        },
-        "then": {
-          "required": ["radius", "baseCentroid", "topCentroid"],
-          "properties": {
-            "radius": { "type": "number", "description": "Radius of the capsule." },
-            "baseCentroid": { "$ref": "#/definitions/VEC3", "description": "Centroid 3D coordinate (x,y,z) of the base semi-sphere of the capsule." },
-            "topCentroid": { "$ref": "#/definitions/VEC3", "description": "Centroid 3D coordinate (x,y,z) of the top semi-sphere of the capsule." }
-          }
-        }
-      },
-      {
-        "if": {
-          "properties": { "type": { "const": "BV_SPHEROID" } }
-        },
-        "then": {
-          "required": ["radius", "centroid"],
-          "properties": {
-            "radius": { "type": "number", "description": "Radius of the sphere." },
-            "centroid": { "$ref": "#/definitions/VEC3", "description": "Centre 3D coordinate (x,y,z) of the sphere." }
-          }
-        }
-      }
-    ],
-    "definitions": {
-      "VEC2": {
-        "type": "array",
-        "items": { "type": "number" },
-        "minItems": 2,
-        "maxItems": 2,
-        "description": "2D vector (x,y)"
-      },
-      "VEC3": {
-        "type": "array",
-        "items": { "type": "number" },
-        "minItems": 3,
-        "maxItems": 3,
-        "description": "3D vector (x,y,z)"
-      }
-    }
-  }
+      ],
+      "required":["type"]
+}
