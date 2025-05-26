@@ -58,8 +58,138 @@ The MPEG reference avatar is identified by “urn:mpeg:sd:2023:avatar” as avat
 The avatar path allows the addressing of every segment in an avatar, which allows for associating them with interactivity triggers and skeleton animations. An example structure of the humanoid Avatar is depicted in Table 3 and the Avatar path is constructed by concatenating the Avatar parts hierarchically from root to the desired element using “/” as separator e.g.  “/full_body/upper_body/arm_right/hand_right”. 
 
 Table 3: Avatar paths
-| "full_body": {</br>	"upper_body":{</br>		"head":{</br>			"face":{</br>				"mouth",</br>				"lower_jaw",</br>				"upper_jaw",</br>				"eye_right",</br>				"eye_left"</br>			},</br>			"neck",</br>			"ear_right",</br>			"ear_left",</br>			"back"</br>		},</br>		"thorax":{</br>			"chest_front",</br>			"chest_back",</br>			"shoulder_front_right",</br>			"shoulder_front_left",</br>			"shoulder_back_right",</br>			"shoulder_back_left"</br>		},</br>		"arm_right":{</br>			"upper_arm_right",</br>			"lower_arm_right",</br>			"hand_right":{</br>				"thumb_proximal_right":{</br>					"thumb_intermediate_right":{</br>						"thumb_distal_right"</br>						}</br>				},</br>				"index_proximal_right":{</br>					"index_intermediate_right":{</br>						"index_distal_right":{</br>							"index_top_right"</br>						}</br>					}</br>				},</br>				"middle_proximal_right":{</br>					"middle_intermediate_right":{</br>						"middle_distal_right":{</br>							"middle_top_right"</br>						}</br>					}</br>				},</br>				"ring_proximal_right":{</br>					"ring_intermediate_right":{</br>						"ring_distal_right":{</br>							"ring_top_right"</br>						}</br>					}</br>				},</br>				"litttle_proximal_right":{</br>					"litttle_intermediate_right":{</br>						"litttle_distal_right":{</br>							"litttle_top_right"</br>						}</br>					}</br>				}</br>			}</br>		},</br>		"arm_left":{</br>			"upper_arm_left",</br>			"lower_arm_left",</br>			"hand_left":{</br>				"thumb_proximal_left":{</br>					"thumb_intermediate_left":{</br>						"thumb_distal_left"</br>						}</br>				},</br>				"index_proximal_left":{</br>					"index_intermediate_left":{</br>						"index_distal_left":{</br>							"index_top_left"</br>						}</br>					}</br>				},</br>				"middle_proximal_left":{</br>					"middle_intermediate_left":{</br>						"middle_distal_left":{</br>							"middle_top_left"</br>						}</br>					}</br>				},</br>				"ring_proximal_left":{</br>					"ring_intermediate_left":{</br>						"ring_distal_left":{</br>							"ring_top_left"</br>						}</br>					}</br>				},</br>				"litttle_proximal_left":{</br>					"litttle_intermediate_left":{</br>						"litttle_distal_left":{</br>							"litttle_top_left"</br>						}</br>					}</br>				}</br>			}</br>		}</br>	}</br>	"lower_body":{</br>		"pelvis":{</br>			"pelvis_front":{</br>				"pelvis_front_right",</br>				"pelvis_front_left"</br>			},</br>			"pelvis_back":{</br>				"pelvis_back_right",</br>				"pelvis_back_left"</br>			}</br>		},</br>		"leg_right":{</br>			"upper_leg_right",</br>			"lower_leg_right",</br>			"foot_right":{</br>				"toes_right"</br>			}</br>		},</br>		"leg_left":{</br>			"upper_leg_left",</br>			"lower_leg_left",</br>			"foot_left":{</br>				"toes_left"</br>			}</br>		}</br>	}</br>} |
-|:-|
+
+```
+"full_body": {
+    "upper_body":{
+        "head":{
+            "face":{
+                "mouth",
+                "lower_jaw",
+                "upper_jaw",
+                "eye_right",
+                "eye_left"
+            },
+            "neck",
+            "ear_right",
+            "ear_left",
+            "back"
+        },
+        "thorax":{
+            "chest_front",
+            "chest_back",
+            "shoulder_front_right",
+            "shoulder_front_left",
+            "shoulder_back_right",
+            "shoulder_back_left"
+        },
+        "arm_right":{
+            "upper_arm_right",
+            "lower_arm_right",
+            "hand_right":{
+                "thumb_proximal_right":{
+                    "thumb_intermediate_right":{
+                        "thumb_distal_right"
+                    }
+                },
+                "index_proximal_right":{
+                    "index_intermediate_right":{
+                        "index_distal_right":{
+                            "index_top_right"
+                        }
+                    }
+                },
+                "middle_proximal_right":{
+                    "middle_intermediate_right":{
+                        "middle_distal_right":{
+                            "middle_top_right"
+                        }
+                    }
+                },
+                "ring_proximal_right":{
+                    "ring_intermediate_right":{
+                        "ring_distal_right":{
+                            "ring_top_right"
+                        }
+                    }
+                },
+                "little_proximal_right":{
+                    "little_intermediate_right":{
+                        "little_distal_right":{
+                            "little_top_right"
+                        }
+                    }
+                }
+            }
+        },
+        "arm_left":{
+            "upper_arm_left",
+            "lower_arm_left",
+            "hand_left":{
+            "thumb_proximal_left":{
+                "thumb_intermediate_left":{
+                    "thumb_distal_left"
+                }
+            },
+            "index_proximal_left":{
+                "index_intermediate_left":{
+                    "index_distal_left":{
+                        "index_top_left"
+                    }
+                }
+            },
+            "middle_proximal_left":{
+                "middle_intermediate_left":{
+                    "middle_distal_left":{
+                        "middle_top_left"
+                    }
+                }
+            },
+            "ring_proximal_left":{
+                "ring_intermediate_left":{
+                    "ring_distal_left":{
+                        "ring_top_left"
+                    }
+                }
+            },
+            "little_proximal_left":{
+                "little_intermediate_left":{
+                    "little_distal_left":{
+                        "little_top_left"
+                    }
+                }
+            }
+        }
+    },
+    "lower_body":{
+        "pelvis":{
+            "pelvis_front":{
+                "pelvis_front_right",
+                "pelvis_front_left"
+            },
+            "pelvis_back":{
+                "pelvis_back_right",
+                "pelvis_back_left"
+            }
+        },
+        "leg_right":{
+            "upper_leg_right",
+            "lower_leg_right",
+            "foot_right":{
+                "toes_right"
+            }
+        },
+        "leg_left":{
+            "upper_leg_left",
+            "lower_leg_left",
+            "foot_left":{
+                "toes_left"
+            }
+        }
+    }
+}
+```
+
 
 
 ## 	Processing model
