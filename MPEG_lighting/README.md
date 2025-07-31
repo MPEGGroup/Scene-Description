@@ -59,9 +59,9 @@ Table 3: Definitions of objects at the scene level of MPEG_lights_texture_based
 ### Semantics of the MPEG_lights_punctual extension
 
 When present, the MPEG_lights_punctual extension shall be included as a glTF file level extension.
-The definition of all objects within MPEG_lights_punctual extension is provided in Table 4.
+The definition of all objects in the array within MPEG_lights_punctual extension is provided in Table 4.
 
-Table 4 – Definition of glTF file objects of MPEG_lights_punctual extension
+Table 4 – Definition of glTF file objects of the array in the MPEG_lights_punctual extension
 | Name | Type | Usage | Default | Description |
 |--|--|--|--|--|
 | light | integer | M |  | Index of the item in the array of the lights parameter of the KHR_lights_punctual extension |
